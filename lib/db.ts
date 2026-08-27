@@ -23,12 +23,18 @@ export async function getChannel() {
 
 export async function ensureChannel() {
   const existing = await getChannel()
-  if (existing) return existing
+  if (existing) {
+    if (existing.rtmpServer !== 'rtmp://streaming-management-platform.vercel.app/live') {
+      const [updated] = await db.update(channelSettings).set({ rtmpServer: 'rtmp://streaming-management-platform.vercel.app/live', updatedAt: new Date() }).where(eq(channelSettings.id, 1)).returning()
+      return updated
+    }
+    return existing
+  }
   const [created] = await db.insert(channelSettings).values({
     id: 1,
     name: 'Главный канал',
     streamKey: crypto.randomUUID().replaceAll('-', ''),
-    rtmpServer: `rtmp://${process.env.VERCEL_URL ?? process.env.V0_RUNTIME_URL ?? 'your-domain.example'}/live`,
+    rtmpServer: 'rtmp://streaming-management-platform.vercel.app/live',
     hlsUrl: '',
     updatedAt: new Date(),
   }).returning()

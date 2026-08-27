@@ -1,0 +1,10 @@
+import { LiveBroadcast } from '@/components/live-broadcast'
+
+export default function LivePage() {
+  return <main className="site-shell">
+    <header className="topbar"><a className="brand" href="/"><span className="brand-mark"><TvIcon /></span> эфир<span className="brand-dot">.</span></a><a className="back-link" href="/">Смотреть канал</a></header>
+    <LiveBroadcast />
+  </main>
+}
+
+function TvIcon() { return <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m8 2 4 3 4-3"/><path d="M8 12h.01M12 12h.01M16 12h.01"/></svg> }
