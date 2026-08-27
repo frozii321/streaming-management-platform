@@ -28,7 +28,7 @@ export async function ensureChannel() {
     id: 1,
     name: 'Главный канал',
     streamKey: crypto.randomUUID().replaceAll('-', ''),
-    rtmpServer: 'rtmp://your-server.example/live',
+    rtmpServer: `rtmp://${process.env.VERCEL_URL ?? process.env.V0_RUNTIME_URL ?? 'your-domain.example'}/live`,
     hlsUrl: '',
     updatedAt: new Date(),
   }).returning()
