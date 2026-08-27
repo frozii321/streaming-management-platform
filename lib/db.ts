@@ -24,8 +24,8 @@ export async function getChannel() {
 export async function ensureChannel() {
   const existing = await getChannel()
   if (existing) {
-    if (existing.rtmpServer !== 'rtmp://streaming-management-platform.vercel.app/live') {
-      const [updated] = await db.update(channelSettings).set({ rtmpServer: 'rtmp://streaming-management-platform.vercel.app/live', updatedAt: new Date() }).where(eq(channelSettings.id, 1)).returning()
+    if (existing.rtmpServer !== 'rtmp://tv.axiloom.fun/live') {
+      const [updated] = await db.update(channelSettings).set({ rtmpServer: 'rtmp://tv.axiloom.fun/live', updatedAt: new Date() }).where(eq(channelSettings.id, 1)).returning()
       return updated
     }
     return existing
@@ -34,7 +34,7 @@ export async function ensureChannel() {
     id: 1,
     name: 'Главный канал',
     streamKey: crypto.randomUUID().replaceAll('-', ''),
-    rtmpServer: 'rtmp://streaming-management-platform.vercel.app/live',
+    rtmpServer: 'rtmp://tv.axiloom.fun/live',
     hlsUrl: '',
     updatedAt: new Date(),
   }).returning()
